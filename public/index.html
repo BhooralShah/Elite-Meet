@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e0e1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Elite Meet — Teach. Record. Deliver. Auto-recorded video classes for educators." />
+  <title>Elite Meet — Teach. Record. Deliver.</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <!-- ============================ -->
+  <!-- JOIN SCREEN                  -->
+  <!-- ============================ -->
+  <section id="join-screen" class="screen">
+    <div class="join-card">
+      <div class="brand">
+        <div class="brand-logo">EM</div>
+        <div class="brand-text">
+          <h1>Elite Meet</h1>
+          <p class="brand-slogan">Teach. Record. Deliver.</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Room ID</label>
+        <input id="room-input" class="input" value="class-101" />
+      </div>
+
+      <div class="form-group">
+        <label>Your Name</label>
+        <input id="name-input" class="input" placeholder="Enter your name" />
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="teacher-check" />
+        <span>I am the teacher</span>
+      </label>
+
+      <div class="form-group" id="code-group">
+        <label>Class Code</label>
+        <input
+          id="code-input"
+          class="input"
+          placeholder="6-digit code"
+          maxlength="6"
+          inputmode="numeric"
+          autocomplete="off"
+        />
+      </div>
+
+      <button id="join-btn" class="btn btn-primary btn-block">Join Class</button>
+
+      <p class="join-footer">Powered by <strong>Zaforix Tech</strong></p>
+    </div>
+  </section>
+
+  <!-- ============================ -->
+  <!-- ROOM SCREEN                  -->
+  <!-- ============================ -->
+  <section id="room-screen" class="screen hidden">
+
+    <!-- ======= TOP BAR ======= -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="mobile-menu-btn" class="icon-btn mobile-only">☰</button>
+        <div class="logo-sm">EM</div>
+        <div class="topbar-info">
+          <div id="room-title" class="room-title">Room</div>
+          <div id="status" class="room-status">Connecting…</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div id="code-badge" class="code-badge hidden" title="Share this code with students">
+          🔑 <span id="code-text">------</span>
+        </div>
+        <div id="rec-badge" class="rec-badge hidden">
+          <span class="rec-dot"></span> REC
+        </div>
+        <div id="clock" class="clock">00:00</div>
+      </div>
+    </header>
+
+    <!-- ======= MAIN AREA ======= -->
+    <main class="main-area" id="main-area">
+
+      <div id="video-grid" class="video-grid" data-count="1">
+        <div class="tile" id="local-tile">
+          <video id="local-video" autoplay muted playsinline></video>
+          <div id="local-avatar" class="avatar" style="display:none">You</div>
+          <div class="tile-label">
+            <span id="local-name">You</span>
+            <span id="local-mic" class="mic-ind">🎤</span>
+          </div>
+        </div>
+      </div>
+
+      <aside id="side-panel" class="side-panel hidden">
+        <div class="panel-header">
+          <div class="panel-tabs">
+            <button class="panel-tab active" data-tab="chat">Chat</button>
+            <button class="panel-tab" data-tab="people">People</button>
+          </div>
+          <button id="close-panel" class="panel-close">✕</button>
+        </div>
+
+        <div id="tab-chat" class="tab-content">
+          <div id="chat-messages" class="chat-messages"></div>
+          <form id="chat-form" class="chat-form">
+            <input id="chat-input" class="chat-input" placeholder="Message…" autocomplete="off" />
+            <button type="submit" class="chat-send">➤</button>
+          </form>
+        </div>
+
+        <div id="tab-people" class="tab-content hidden">
+          <div id="people-list" class="people-list"></div>
+        </div>
+      </aside>
+
+      <div id="panel-backdrop" class="panel-backdrop hidden"></div>
+    </main>
+
+    <!-- ======= TEACHER BAR ======= -->
+    <div id="teacher-bar" class="teacher-bar hidden">
+      <span class="teacher-tag">👨‍🏫</span>
+      <button id="mute-all-btn" class="mini-btn">🔇 Mute All</button>
+      <button id="cam-off-all-btn" class="mini-btn">📵 Cam Off</button>
+      <button id="lock-btn" class="mini-btn">🔓 Lock</button>
+      <button id="newcode-btn" class="mini-btn">🔑 New Code</button>
+    </div>
+
+    <!-- ======= CONTROL BAR ======= -->
+    <footer class="control-bar">
+      <div class="controls-inner">
+        <button id="mic-btn" class="ctrl-btn" title="Mute">
+          <span class="ctrl-icon">🎤</span>
+          <span class="ctrl-label">Mute</span>
+        </button>
+        <button id="cam-btn" class="ctrl-btn" title="Camera">
+          <span class="ctrl-icon">📷</span>
+          <span class="ctrl-label">Camera</span>
+        </button>
+        <button id="flip-cam-btn" class="ctrl-btn" title="Switch Camera">
+          <span class="ctrl-icon">🔄</span>
+          <span class="ctrl-label">Flip</span>
+        </button>
+        <button id="share-btn" class="ctrl-btn" title="Share Screen">
+          <span class="ctrl-icon">🖥️</span>
+          <span class="ctrl-label">Share</span>
+        </button>
+
+        <button id="record-btn" class="ctrl-btn record hidden" title="Start Recording">
+          <span class="ctrl-icon">⏺</span>
+          <span class="ctrl-label">Record</span>
+        </button>
+        <button id="stop-record-btn" class="ctrl-btn record-stop hidden" title="End Class">
+          <span class="ctrl-icon">⏹</span>
+          <span class="ctrl-label">End</span>
+        </button>
+
+        <button id="chat-toggle" class="ctrl-btn" title="Chat">
+          <span class="ctrl-icon">💬</span>
+          <span class="ctrl-label">Chat</span>
+          <span id="chat-badge" class="badge hidden">0</span>
+        </button>
+        <button id="people-toggle" class="ctrl-btn" title="People">
+          <span class="ctrl-icon">👥</span>
+          <span class="ctrl-label">People</span>
+          <span id="people-count" class="badge">1</span>
+        </button>
+        <button id="leave-btn" class="ctrl-btn danger" title="Leave">
+          <span class="ctrl-icon">📞</span>
+          <span class="ctrl-label">Leave</span>
+        </button>
+      </div>
+    </footer>
+
+  </section>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <button id="install-btn" class="install-btn hidden">📲 Install Elite Meet</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/simple-peer@9.11.1/simplepeer.min.js"></script>
+  <script src="/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>
